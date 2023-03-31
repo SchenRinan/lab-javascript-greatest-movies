@@ -51,24 +51,28 @@ return arrayNameOnly;
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-
-    // const copiedArray = [];
-    // for(i=0;i<moviesArray.length;i++){copiedArray.push(moviesArray[i])};
-    // let removeSpace = [];
-    // let removeLetter = [];
-    // for(i=0;i<moviesArray.length;i++){
-    //     removeSpace = copiedArray[i].duration.split(" ");
-    //             if(removeSpace.length === 2)
-    //             {removeLetters.push(removeSpace[0].replace('h',""));
-    //             removeLetters.push(removeSpace[1].replace("min",""))
-    //         copiedArray[i].duration.replace(copiedArray[i].duration,removeLetters[0]*60+removeLetters[1])}
-    // if(removeSpace.length === 1)
-    // {removeLetters.push(removeSpace[0].replace("min",""))
-    // copiedArray[i].duration.replace(copiedArray[i].duration,removeLetters[0])}
-    // }
-
-
-
+    const clonedArray = [];
+    for(i=0;i<moviesArray.length;i++){clonedArray.push(moviesArray[i])};
+    let removeSpace = [];
+    let removeH = [];
+  let removeMin = [];
+    for(i=0;i<clonedArray.length;i++){
+    if(clonedArray[i].duration.includes(" ")){
+        removeSpace = clonedArray[i].duration.split(" ");
+        removeH = removeSpace[0].replace("h","");
+        removeMin = removeSpace[1].replace("min","");
+        clonedArray[i].duration = +removeH*60 + +removeMin;
+    }
+    else if(clonedArray[i].duration.includes("h")){
+        removeH = clonedArray[i].duration.replace("h","");
+        clonedArray[i].duration = +removeH*60;
+    }
+    else if(clonedArray[i].duration.includes("min")){
+        removeMin = clonedArray[i].duration.replace("min","");
+        clonedArray[i].duration = +removeMin;
+    }
+    }
+    return clonedArray;
 }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
