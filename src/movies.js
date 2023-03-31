@@ -22,16 +22,54 @@ function scoresAverage(moviesArray) {
 }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore(moviesArray) {}
+function dramaMoviesScore(moviesArray) {
+        const dramaArray = moviesArray.filter(dramaArray =>  dramaArray.genre.includes('Drama'));
+        if(dramaArray.length === 0){return 0;}
+        const averageScore = dramaArray.reduce(function (sum, current) {return sum + current.score} , 0);
+        return Math.round((averageScore / dramaArray.length) * 100) / 100 ;
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+    const copyArray = [];
+    for(i=0;i<moviesArray.length;i++){copyArray.push(moviesArray[i])};
+    const ascendingAlphabetical = copyArray.sort((a, b) => (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0);
+    const ascendingYear = ascendingAlphabetical.sort((a,b) => a.year - b.year);
+        return ascendingYear;        
+    
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+    const copiedArray = [];
+    for(i=0;i<moviesArray.length;i++){copiedArray.push(moviesArray[i])};
+    const ascendingAlphabetical = copiedArray.sort((a, b) => a.title.localeCompare(b.title));
+const arrayNameOnly = [];
+for(i=0;i<moviesArray.length && i<20 ;i++){arrayNameOnly.push(ascendingAlphabetical[i].title)};
+return arrayNameOnly;
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+
+    // const copiedArray = [];
+    // for(i=0;i<moviesArray.length;i++){copiedArray.push(moviesArray[i])};
+    // let removeSpace = [];
+    // let removeLetter = [];
+    // for(i=0;i<moviesArray.length;i++){
+    //     removeSpace = copiedArray[i].duration.split(" ");
+    //             if(removeSpace.length === 2)
+    //             {removeLetters.push(removeSpace[0].replace('h',""));
+    //             removeLetters.push(removeSpace[1].replace("min",""))
+    //         copiedArray[i].duration.replace(copiedArray[i].duration,removeLetters[0]*60+removeLetters[1])}
+    // if(removeSpace.length === 1)
+    // {removeLetters.push(removeSpace[0].replace("min",""))
+    // copiedArray[i].duration.replace(copiedArray[i].duration,removeLetters[0])}
+    // }
+
+
+
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
