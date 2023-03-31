@@ -51,29 +51,51 @@ return arrayNameOnly;
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-    const clonedArray = [];
-    for(i=0;i<moviesArray.length;i++){clonedArray.push(moviesArray[i])};
     let removeSpace = [];
     let removeH = [];
-  let removeMin = [];
-    for(i=0;i<clonedArray.length;i++){
-    if(clonedArray[i].duration.includes(" ")){
-        removeSpace = clonedArray[i].duration.split(" ");
-        removeH = removeSpace[0].replace("h","");
-        removeMin = removeSpace[1].replace("min","");
-        clonedArray[i].duration = +removeH*60 + +removeMin;
-    }
-    else if(clonedArray[i].duration.includes("h")){
-        removeH = clonedArray[i].duration.replace("h","");
-        clonedArray[i].duration = +removeH*60;
-    }
-    else if(clonedArray[i].duration.includes("min")){
-        removeMin = clonedArray[i].duration.replace("min","");
-        clonedArray[i].duration = +removeMin;
-    }
-    }
-    return clonedArray;
+    let removeMin = [];
+
+    const cloneArray = moviesArray.map(function(number) {
+        if(number.duration.includes(" ")){
+            removeSpace = number.duration.split(" ");
+            removeH = removeSpace[0].replace("h","");
+            removeMin = removeSpace[1].replace("min","");
+            return Object.assign({}, number, { duration: +removeH*60 + +removeMin });
+        }
+        else if(number.duration.includes("h")){
+            removeH = number.duration.replace("h","");
+            return Object.assign({}, number, { duration: +removeH*60 });
+        }
+        else if(number.duration.includes("min")){
+            removeMin = number.duration.replace("min","");
+            return Object.assign({}, number, { duration: +removeMin });
+        }
+    })
+    return cloneArray;
 }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
-function bestYearAvg(moviesArray) {}
+function bestYearAvg(moviesArray) {
+    if(moviesArray.length == 0){return null;}
+    const copiedArray = [];
+    // let sum = 0;
+    let counter = 1;
+    for(i=0;i<moviesArray.length;i++){copiedArray.push(moviesArray[i])};
+    const ascendingYear = copiedArray.sort((a,b) => a.year - b.year);
+    let highestYear = ascendingYear[ascendingYear.length-1].year;
+    let currentYear = ascendingYear[0].year;
+    let sum = ascendingYear[0].score;
+    let currentHighest = ascendingYear[ascendingYear.length-1].score;
+
+    for(i=0;i<ascendingYear.length-1;i++){
+        if(ascendingYear[i].year !== ascendingYear[i+1].year){
+            if(currentHighest < sum/counter){
+                currentHighest = sum/counter;
+                highestYear=ascendingYear[i].year;}
+                sum = ascendingYear[i+1].score; counter = 1;
+        }
+        else if(ascendingYear[i].year === ascendingYear[i+1].year){
+          sum += ascendingYear[i+1].score; counter++;
+        }}
+        return `The best year was ${highestYear} with an average score of ${currentHighest}`;
+}
